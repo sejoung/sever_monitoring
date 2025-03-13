@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 3,
+  "id": 4,
   "links": [],
   "panels": [
     {
@@ -87,7 +87,7 @@
         "x": 0,
         "y": 0
       },
-      "id": 5,
+      "id": 1,
       "options": {
         "legend": {
           "calcs": [],
@@ -104,14 +104,18 @@
       "pluginVersion": "11.5.2",
       "targets": [
         {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "feflsilnsz5s0d"
+          },
           "editorMode": "code",
-          "expr": "100 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes * 100)",
-          "legendFormat": "{{instance}}",
+          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
+          "legendFormat": "__auto",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Swap Usage (%)",
+      "title": "CPU Usage (%)",
       "type": "timeseries"
     },
     {
@@ -274,7 +278,7 @@
         "x": 0,
         "y": 8
       },
-      "id": 1,
+      "id": 3,
       "options": {
         "legend": {
           "calcs": [],
@@ -291,18 +295,14 @@
       "pluginVersion": "11.5.2",
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "feflsilnsz5s0d"
-          },
           "editorMode": "code",
-          "expr": "100 - (avg by(instance) (rate(node_cpu_seconds_total{mode=\"idle\"}[5m])) * 100)",
-          "legendFormat": "__auto",
+          "expr": "100 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100)",
+          "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "CPU Usage (%)",
+      "title": "Memory Usage (%)",
       "type": "timeseries"
     },
     {
@@ -371,7 +371,7 @@
         "x": 12,
         "y": 8
       },
-      "id": 3,
+      "id": 5,
       "options": {
         "legend": {
           "calcs": [],
@@ -389,13 +389,13 @@
       "targets": [
         {
           "editorMode": "code",
-          "expr": "100 - (node_memory_MemAvailable_bytes / node_memory_MemTotal_bytes * 100)",
+          "expr": "100 - (node_memory_SwapFree_bytes / node_memory_SwapTotal_bytes * 100)",
           "legendFormat": "{{instance}}",
           "range": true,
           "refId": "A"
         }
       ],
-      "title": "Memory Usage (%)",
+      "title": "Swap Usage (%)",
       "type": "timeseries"
     },
     {
@@ -507,6 +507,6 @@
   "timezone": "browser",
   "title": "서버목록",
   "uid": "befoj1xh6c8hsc",
-  "version": 11,
+  "version": 4,
   "weekStart": ""
 }
